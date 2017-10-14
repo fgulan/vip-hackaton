@@ -16,7 +16,7 @@ def generate_tables(user_samples=USER_SAMPLES, activities_samples=ACTIVITIES_SAM
     LON = 1 * np.abs(np.random.randn(user_samples) + 16)
     REVENUE = np.random.randint(0, 3, user_samples) # bronze, silver, gold
     CUSTOMER_TYPE = np.random.randint(0, 3, user_samples) # mobile, fixed, convergent
-    HARDWARE_TYPE = np.random.randint(0, 2, user_samples) # iOS, Android
+    HARDWARE_TYPE = np.random.randint(0, 5, user_samples) # very cheap, cheap, mediocre, expensive, very expensive
 
     # activities 
     CUSTOMER_ID = np.random.randint(0, user_samples, activities_samples)
