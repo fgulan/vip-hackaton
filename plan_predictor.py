@@ -1,3 +1,5 @@
+from collections import Counter
+
 import numpy as np
 
 np.random.seed(1337)
@@ -6,6 +8,26 @@ COMBINATIONS = np.array([[300, 20, 60, 10, 40],
                          [50, 400, 70, 40, 50],
                          [40, 20, 560, 90, 45],
                          [1, 100, 120, 490, 60]])
+SERVICES = {
+    0: "netflix",
+    1: "deezer",
+    2: "dropbox",
+    3: "google_drive",
+    4: "youtube",
+    5: "steam",
+    6: "github",
+    7: "azure",
+    8: "aws",
+    9: "google_cloud"
+}
+
+
+def service_from_packets(packets, most_common=3):
+    c = Counter(packets)
+    top_3 = c.most_common(most_common)
+    for k, count in top_3:
+        print(SERVICES[k])
+    return top_3
 
 
 def find_distance(sms_usage, mms_usage, mbyte_usage, call_usage, price):
@@ -22,3 +44,11 @@ def find_distance(sms_usage, mms_usage, mbyte_usage, call_usage, price):
             min = diff
             recommended = plan
     return recommended, min
+
+
+def main():
+    usage = np.array(np.abs(1 + np.random.randn(1000) + 5), dtype=np.int32)
+    service_from_packets(usage)
+
+
+main()
