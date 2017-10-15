@@ -103,14 +103,15 @@ def generate_dataset(num_samples, type):
     labels = np.repeat([label], features.shape[1])
     return features.T, labels
 
-# family, fam_labels = generate_dataset(100, 0)
-# non_family, labels = generate_dataset(100, 1)
+if __name__ == "__main__":
+    family, fam_labels = generate_dataset(100, 0)
+    non_family, labels = generate_dataset(100, 1)
 
-# x = np.vstack((family, non_family))
-# y = np.hstack((fam_labels, labels))
-# x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3)
+    x = np.vstack((family, non_family))
+    y = np.hstack((fam_labels, labels))
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3)
 
-# clf = svm.SVC()
-# clf.fit(x_train, y_train)
+    clf = svm.SVC()
+    clf.fit(x_train, y_train)
 
-# print(accuracy_score(y_test, clf.predict(x_test)))
+    print(accuracy_score(y_test, clf.predict(x_test)))
