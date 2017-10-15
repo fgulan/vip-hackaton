@@ -3,10 +3,13 @@ from sklearn import svm
 from sklearn.metrics import f1_score
 from sklearn.model_selection import train_test_split
 
+np.random.seed(1337)
+
 
 def generate_dataset(num_samples, type):
     # Features: Date/time, Usage_type, Measure, service_type, origin_location,
     # receiving_service_type, receiving_location
+
 
     if type == 0:
         # Generate non-family
