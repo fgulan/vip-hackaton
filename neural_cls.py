@@ -1,17 +1,33 @@
+import os
+import time
+
 import keras
-from keras.models import Sequential
-from keras.layers import Dense, Dropout, Flatten
-from keras.layers import Conv2D, MaxPooling2D
-from keras import backend as K
-from sklearn.model_selection import train_test_split
 import numpy as np
+from keras.layers import Dense, Dropout
+from keras.models import Sequential
+from sklearn.model_selection import train_test_split
+
 import family_generator as fg
-from keras.utils.np_utils import to_categorical
-import pdb
+
+
+class EpochRecorderCallback(keras.callbacks.Callback):
+
+    def __init__(self):
+        super().__init__()
+        self.epoch_ends = []
+
+
+    def on_train_begin(self, logs=None):
+        self.start_timestamp = time.gmtime()
+
+
+    def on_epoch_end(self, epoch, logs=None):
+        self.epoch_ends.append(time.gmtime())
+
 
 batch_size = 128
 num_classes = 2
-epochs = 800
+epochs = 20
 input_shape = 29
 
 family, fam_labels = fg.generate_dataset(10000, 0)
@@ -44,13 +60,23 @@ model.compile(loss=keras.losses.sparse_categorical_crossentropy,
               optimizer=keras.optimizers.Adam(),
               metrics=['accuracy'])
 
+callback = EpochRecorderCallback()
+
 model.fit(x_train, y_train,
-        batch_size=batch_size,
-        epochs=epochs,
-        verbose=1,
-        validation_data=(x_valid, y_valid))
+          callbacks=[callback],
+          batch_size=batch_size,
+          epochs=epochs,
+          verbose=1,
+          validation_data=(x_valid, y_valid))
+
+for i, diff in enumerate(np.array(callback.epoch_ends) - callback.start_timestamp):
+    print (i, diff)
 
 score = model.evaluate(x_test, y_test, verbose=0)
 print('Test loss:', score[0])
 print('Test accuracy:', score[1])
 
+dir = os.getcwd()
+model_file_name = os.path.join(dir, 'fully_connected_model')
+print('saving model to: ' + str(os.getcwd()))
+model.save(model_file_name)

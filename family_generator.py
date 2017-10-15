@@ -7,18 +7,18 @@ from sklearn.model_selection import train_test_split
 feature_generator_parameters_type_0 = [ # Family
     # Date time measures mean and std for mean and for std. [0 - 1]
     0.7,   0.2,     0.002,  0.0009,
-    0.79,  0.15,   0.0015, 0.00001,
-    0.789, 0.2,    0.002,  0.002,
-    0.71,  0.09,   0.0001, 0.0015,
-    0.73,  0.12,   0.0025, 0.0001,
-    0.72,  0.1,   0.001,  0.002,
-    0.65,  0,         0.002,  0.0013,
+    0.79,  0.15,    0.0015, 0.00001,
+    0.789, 0.2,     0.002,  0.002,
+    0.71,  0.09,    0.0001, 0.0015,
+    0.73,  0.12,    0.0025, 0.0001,
+    0.72,  0.1,     0.001,  0.002,
+    0.65,  0,       0.002,  0.0013,
 
     # Minutes parameters [3, 30 * 60] in seconds
     1*60,      20,    0.002,  0.0009,
-    1*60,      8,    0.0015, 0.00001,
-    1*60 + 20, 2,    0.002,  0.002,
-    1*60 + 45, 5,    0.0001, 0.0015,
+    1*60,      8,     0.0015, 0.00001,
+    1*60 + 20, 2,     0.002,  0.002,
+    1*60 + 45, 5,     0.0001, 0.0015,
     1*60 - 10, 15,    0.0025, 0.0001,
     1*60 + 21, 10,    0.001,  0.002,
     20,        10,    0.002,  0.0013,
@@ -100,7 +100,7 @@ def generate_dataset(num_samples, type):
     usage_type = np.array(np.abs(params[28] + np.random.randn(num_samples) * params[29]), dtype=np.int32)
 
     features = np.vstack((date_time_features, duration_features, usage_type))
-    labels = np.repeat(label, features.shape[1])
+    labels = np.repeat([label], features.shape[1])
     return features.T, labels
 
 # family, fam_labels = generate_dataset(100, 0)
