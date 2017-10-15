@@ -51,7 +51,7 @@ feature_generator_parameters_type_1 = [ # Friend
 ]
 
 feature_generator_parameters_type_2 = [ # Bussines And Other
-        # Date time measures mean and std for mean and for std. [0 - 1]
+    # Date time measures mean and std for mean and for std. [0 - 1]
     0.7,   0.02,     0.002,  0.0009,
     0.79,  0.0015,   0.0015, 0.00001,
     0.89, 0.002,    0.002,  0.002,
